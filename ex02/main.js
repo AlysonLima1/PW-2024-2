@@ -1,19 +1,18 @@
-const btAdic = document.getElementById("btAdic");
+document.addEventListener('DOMContentLoaded', () => {
+    const btCalcular = document.getElementById('btCalcular');
 
-btAdic.addEventListener('click', () => {
-    let número = document.getElementById('número');
-    let Somatório = document.getElementById('Somatório');
+    btCalcular.addEventListener('click', () => {
+        const número = document.getElementById('número');
+        const número2 = document.getElementById('número2');
+        const resultado = document.getElementById('resultado');
 
+        const valor1 = parseFloat(número.value);
+        const valor2 = parseFloat(número2.value);
 
-    let validacao = parseInt(número.value)
-    
-    if (!isNaN(validacao)) {
-        Somatório.value = Number(número2.value) + Number(número.value);
-        número.value = "";
-        número.focus();
-
-        return;
-    } else {
-        alert('Digite um número.')        
-    }
-})
+        if (!isNaN(valor1) && !isNaN(valor2)) {
+            resultado.value = valor1 + valor2;
+        } else {
+            alert('Digite números válidos em ambos os campos.');
+        }
+    });
+});
