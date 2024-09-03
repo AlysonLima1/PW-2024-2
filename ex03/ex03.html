@@ -6,18 +6,30 @@
     <title>Cadastro de aluno</title>
 </head>
 <body>
-    <h1>Cadastro</h1>
-    <label for="Matricula">Matricula:</label>
-    <input type="number" id="Matricula">
-    <br>
-    <label for="Nome">Nome:</label>
-    <input type="text" id="Nome">
-    <br>
-    <label for="Idade">Idade:</label>
-    <input type="number" id="Idade">
-    <br>
-    <label for="CPF">CPF:</label>
-    <input type="number" id="CPF">
-    <br>
+    <h1>Cadastro de Aluno</h1>
+    <form id="alunoForm">
+        <div>
+            <label for="Matricula">Matricula:</label>
+            <input type="number" id="Matricula" name="Matricula">
+        </div>
+        <br>
+        <div>
+            <label for="Nome">Nome:</label>
+            <input type="text" id="Nome" name="Nome">
+        </div>
+        <br>
+        <div>
+            <label for="Idade">Idade:</label>
+            <input type="number" id="Idade" name="Idade">
+        </div>
+        <br>
+        <div>
+            <label for="CPF">CPF:</label>
+            <input type="number" id="CPF" name="CPF">
+        </div>
+        <br>
+        </form>
+        <h2>Resultado:</h2>
+        <pre id="resultado"></pre>
 </body>
 </html>
