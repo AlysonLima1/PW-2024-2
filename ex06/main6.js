@@ -7,7 +7,7 @@ const palavras = [
 let palavra = palavras[Math.floor(Math.random() * palavras.length)];
 let palavraOculta = Array(palavra.length).fill("_");
 let tentativas = 0;
-const maxTentativas = 9;
+const maxTentativas = 10; // Atualizado para 10 partes
 
 const palavraSecretaDiv = document.getElementById("palavraSecreta");
 const letrasDiv = document.getElementById("letras");
@@ -82,7 +82,7 @@ function desenharForca(erros) {
             ctx.stroke();
             break;
         case 10:
-            // Perna direita
+            // Perna direita (última parte)
             ctx.beginPath();
             ctx.moveTo(130, 140);
             ctx.lineTo(150, 170);
