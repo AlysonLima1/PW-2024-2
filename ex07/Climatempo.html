@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clima - OpenWeatherMap</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Clima em Londres</h1>
+        <div class="weather" id="weather"></div>
+    </div>
+    <script>
+        fetch('https://api.openweathermap.org/data/2.5/weather?q=London&appid=e94837df59422d75a11bc1aad0ee51e3')
+            .then(response => response.json())
+            .then(data => {
+                const weatherDiv = document.getElementById('weather');
+                weatherDiv.innerHTML = `
+                    <p><strong>Temperatura:</strong> ${data.main.temp} K</p>
+                    <p><strong>Descrição:</strong> ${data.weather[0].description}</p>
+                    <p><strong>Umidade:</strong> ${data.main.humidity}%</p>
+                    <p><strong>Velocidade do vento:</strong> ${data.wind.speed} m/s</p>
+                `;
+            })
+            .catch(error => console.error('Erro:', error));
+    </script>
+</body>
+</html>
