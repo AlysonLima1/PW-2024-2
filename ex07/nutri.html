@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Nutrição</title>
+</head>
+<body>
+    <h1>Informações Nutricionais</h1>
+    <input type="text" id="alimento" placeholder="Digite um alimento">
+    <button onclick="buscarNutricao()">Buscar</button>
+    <div id="resultado"></div>
+
+    <script>
+        async function buscarNutricao() {
+            const alimento = document.getElementById('alimento').value;
+            const chaveApi = 'SUA_CHAVE_API'; // Substitua pela sua chave
+            const url = `https://api.nutritionix.com/v1_1/search/${alimento}?results=0:1&fields=*&appId=YOUR_APP_ID&appKey=${chaveApi}`;
+
+            const resposta = await fetch(url);
+            const dados = await resposta.json();
+            document.getElementById('resultado').innerHTML = `
+                <h2>${dados.hits[0].fields.item_name}</h2>
+                <p>Calorias: ${dados.hits[0].fields.nf_calories}</p>
+                <p>Proteínas: ${dados.hits[0].fields.nf_protein} g</p>
+            `;
+        }
+    </script>
+</body>
+</html>

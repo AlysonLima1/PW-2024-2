@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>COVID-19</title>
+</head>
+<body>
+    <h1>Dados COVID-19</h1>
+    <div id="resultado"></div>
+
+    <script>
+        async function buscarCovid() {
+            const url = 'https://api.covid19api.com/summary';
+            const resposta = await fetch(url);
+            const dados = await resposta.json();
+            document.getElementById('resultado').innerHTML = `
+                <h2>Global</h2>
+                <p>Casos confirmados: ${dados.Global.TotalConfirmed}</p>
+                <p>Mortes: ${dados.Global.TotalDeaths}</p>
+                <p>Recuperados: ${dados.Global.TotalRecovered}</p>
+            `;
+        }
+
+        buscarCovid();
+    </script>
+</body>
+</html>
