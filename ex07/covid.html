@@ -2,26 +2,50 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>COVID-19</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo COVID-19</title>
 </head>
 <body>
-    <h1>Dados COVID-19</h1>
-    <div id="resultado"></div>
+    <h1>Resumo de Casos de COVID-19</h1>
+    <button id="fetchData">Buscar Dados</button>
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th>País</th>
+                <th>Casos Confirmados</th>
+                <th>Mortes</th>
+                <th>Casos Recuperados</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Os dados serão inseridos aqui -->
+        </tbody>
+    </table>
 
     <script>
-        async function buscarCovid() {
-            const url = 'https://api.covid19api.com/summary';
-            const resposta = await fetch(url);
-            const dados = await resposta.json();
-            document.getElementById('resultado').innerHTML = `
-                <h2>Global</h2>
-                <p>Casos confirmados: ${dados.Global.TotalConfirmed}</p>
-                <p>Mortes: ${dados.Global.TotalDeaths}</p>
-                <p>Recuperados: ${dados.Global.TotalRecovered}</p>
-            `;
-        }
+        document.getElementById('fetchData').addEventListener('click', function() {
+            fetch('https://api.covid19api.com/summary')
+                .then(response => response.json())
+                .then(data => {
+                    const countries = data.Countries;
+                    const tableBody = document.getElementById('data-table').querySelector('tbody');
+                    tableBody.innerHTML = ''; // Limpa a tabela antes de adicionar os novos dados
 
-        buscarCovid();
+                    countries.forEach(country => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${country.Country}</td>
+                            <td>${country.TotalConfirmed}</td>
+                            <td>${country.TotalDeaths}</td>
+                            <td>${country.TotalRecovered}</td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar dados:', error);
+                });
+        });
     </script>
 </body>
 </html>

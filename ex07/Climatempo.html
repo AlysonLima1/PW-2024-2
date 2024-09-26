@@ -2,28 +2,42 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Clima</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clima Atual</title>
 </head>
 <body>
-    <h1>Clima Atual</h1>
-    <input type="text" id="cidade" placeholder="Digite uma cidade">
-    <button onclick="buscarClima()">Buscar</button>
-    <div id="resultado"></div>
+    <h1>Consultar Clima</h1>
+    <input type="text" id="city" placeholder="Digite o nome da cidade">
+    <button id="fetchWeather">Buscar Clima</button>
+    <div id="weather-info"></div>
 
     <script>
-        async function buscarClima() {
-            const cidade = document.getElementById('cidade').value;
-            const chaveApi = 'SUA_CHAVE_API'; // Substitua pela sua chave
-            const url = `https://api.openweathermap.org/data/2.5/weather?q=${cidade}&appid=${chaveApi}&units=metric`;
-            
-            const resposta = await fetch(url);
-            const dados = await resposta.json();
-            document.getElementById('resultado').innerHTML = `
-                <h2>${dados.name}</h2>
-                <p>Temperatura: ${dados.main.temp} °C</p>
-                <p>Condições: ${dados.weather[0].description}</p>
-            `;
-        }
+        const apiKey = 'e94837df59422d75a11bc1aad0ee51e3'; 
+
+        document.getElementById('fetchWeather').addEventListener('click', function() {
+            const city = document.getElementById('city').value;
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Cidade não encontrada');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const weatherInfo = `
+                        <h2>Clima em ${data.name}</h2>
+                        <p>Temperatura: ${data.main.temp} °C</p>
+                        <p>Humidade: ${data.main.humidity}%</p>
+                        <p>Descrição: ${data.weather[0].description}</p>
+                    `;
+                    document.getElementById('weather-info').innerHTML = weatherInfo;
+                })
+                .catch(error => {
+                    document.getElementById('weather-info').innerHTML = `<p>${error.message}</p>`;
+                });
+        });
     </script>
 </body>
 </html>
